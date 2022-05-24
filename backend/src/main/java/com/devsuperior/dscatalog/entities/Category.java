@@ -1,39 +1,59 @@
 package com.devsuperior.dscatalog.entities;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
-
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "tb_category")
-public class Category implements Serializable{
-	
+public class Category implements Serializable {
+
 	private static final long serialVersionUID = 8287813820478712052L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	private Instant createAt;
+
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	private Instant updateAt;
+
+	public Category() {
+
+	}
+
+	public Category(Long id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+	
+	@PrePersist
+	public void prePersist() {
+		createAt = Instant.now();
+	}
+	
+	@PreUpdate
+	public void preUpdate() {
+		updateAt = Instant.now();
+	}
 	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -44,6 +64,30 @@ public class Category implements Serializable{
 			return false;
 		Category other = (Category) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Instant getCreateAt() {
+		return createAt;
+	}
+
+	public Instant getUpdateAt() {
+		return updateAt;
 	}
 
 }
