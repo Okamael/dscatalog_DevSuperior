@@ -14,15 +14,8 @@ import javax.validation.constraints.Size;
 import com.devsuperior.dscatalog.entities.Category;
 import com.devsuperior.dscatalog.entities.Product;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 
-@Getter
-@Setter
-@NoArgsConstructor
 public class ProductDTO implements Serializable {
 
 	private static final long serialVersionUID = -9035476276250408464L;
@@ -58,4 +51,57 @@ public class ProductDTO implements Serializable {
 		categories.forEach(categoria -> this.categories.add(new CategoryDTO(categoria)));
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
+
+	public Instant getDate() {
+		return date;
+	}
+
+	public void setDate(Instant date) {
+		this.date = date;
+	}
+
+	public List<CategoryDTO> getCategories() {
+		return categories;
+	}
+
+	
 }
